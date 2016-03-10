@@ -1,0 +1,16 @@
+{
+  "name": "tbjs-bot",
+  "version": "0.0.1",
+  "main": "tb.js",
+  "scripts": {
+    "start": "node tb.js"
+  },
+  "dependencies": {
+    "events": "^1.1.0",
+    "fs": "0.0.2",
+    "irc": "^0.4.1",
+    "path": "^0.12.7",
+    "tbjs": "git+https://github.com/MatthewSH/node-tbjs.git",
+    "util": "^0.10.3"
+  }
+}
