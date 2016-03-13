@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/site.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
     <!--<script src="assets/js/jquery.min.js"></script>-->
     <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
@@ -19,10 +20,10 @@
         var fs = require('fs');
         var util = require('util');
         var path = require('path');
-        var TBJS = {
-          Functions: require('tbjs/Functions')
-        };
+        var TBJS = require('tbjs');
+        var exec = require('child_process').exec;
       </script>
+      <div class="overlay" style="display:none;"></div>
       <div class="col-lg-12 col-sm-12">
         <div class="card hovercard">
           <div class="card-background">
@@ -34,22 +35,22 @@
         </div>
         <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
           <div class="btn-group" role="group">
-            <button type="button" id="stars" class="btn btn-primary" href="#tabHome" data-toggle="tab"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+            <button type="button" id="homeTab" class="btn btn-primary" href="#tabHome" data-toggle="tab"><span class="glyphicon glyphicon-home" aria-hidden="true"></span>
             <div class="hidden-xs">Home</div>
             </button>
           </div>
           <div class="btn-group" role="group">
-            <button type="button" id="favorites" class="btn btn-default" href="#tabConfiguration" data-toggle="tab"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+            <button type="button" id="configurationTab" class="btn btn-default" href="#tabConfiguration" data-toggle="tab"><span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
             <div class="hidden-xs">Configuration</div>
             </button>
           </div>
           <div class="btn-group" role="group">
-            <button type="button" id="favorites" class="btn btn-default" href="#tabPlugins" data-toggle="tab"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
+            <button type="button" id="pluginsTab" class="btn btn-default" href="#tabPlugins" data-toggle="tab"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>
             <div class="hidden-xs">Plugins & Hooks</div>
             </button>
           </div>
           <div class="btn-group" role="group">
-            <button type="button" id="favorites" class="btn btn-default" href="#tabAbout" data-toggle="tab"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+            <button type="button" id="aboutTab" class="btn btn-default" href="#tabAbout" data-toggle="tab"><span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
             <div class="hidden-xs">About</div>
             </button>
           </div>
@@ -62,64 +63,42 @@
             </div>
             <div class="tab-pane fade in" id="tabPlugins">
               <h3>Plugins</h3>
-              <table class="table table-hover">
+              <table class="table">
                 <thead>
                   <tr>
                     <th>Name</th>
                     <th>Description</th>
                     <th>Author</th>
-                    <th>Enabled</th>
+                    <th>Status</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                <script>
-                  var PluginFolders = TBJS.Functions.getFolders(path.resolve('..', 'src/plugins'));
-                  for (var i = 0; i < PluginFolders.length; i++) {
-                    var plugin;
-                    try {
-                      plugin = require(util.format(path.resolve('..', 'src/plugins/%s'), PluginFolders[i]));
-                      if(plugin) {
-                        if(plugin.enabled) {
-                          document.write(util.format('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', plugin.title, plugin.description, plugin.author, plugin.enabled));
-                        }
+                  <script>
+                    var PluginFolders = TBJS.Functions.getFolders(path.resolve('..', 'src/plugins'));
+                    var PluginJSON = JSON.parse(fs.readFileSync(path.resolve('..', 'src/plugins/plugins.json'), 'utf8'));
+                    for (var i = 0; i < PluginFolders.length; i++) {
+                      var status = 'Unknown';
+                      var action = 'Unknown';
+                      var PackageInfo = JSON.parse(fs.readFileSync(path.resolve('..', util.format('src/plugins/%s/package.json', PluginFolders[i])), 'utf8'));
+                      if(PluginJSON.enabled.indexOf(PluginFolders[i]) > -1) {
+                        status = '<span class="btn btn-success btn-xs disabled">Enabled</span>';
+                        action = util.format('<a id="disablePlugin" class="btn btn-danger btn-xs" pluginId="%s" pluginName="%s">Disable Plugin</a> <a id="removePlugin" class="btn btn-danger btn-xs" pluginId="%s" pluginName="%s">Remove Plugin</a>', PluginFolders[i], PackageInfo.title,  PluginFolders[i], PackageInfo.title);
+                        document.write(util.format('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', PackageInfo.title, PackageInfo.description, PackageInfo.author, status, action))
+                      } else if(PluginJSON.disabled.indexOf(PluginFolders[i]) > -1) {
+                        status = '<span class="btn btn-danger btn-xs disabled">Disabled</span>';
+                        action = util.format('<a id="enablePlugin" class="btn btn-success btn-xs" pluginId="%s" pluginName="%s">Enable Plugin</a> <a id="removePlugin" class="btn btn-danger btn-xs" pluginId="%s" pluginName="%s">Remove Plugin</a>', PluginFolders[i], PackageInfo.title,  PluginFolders[i], PackageInfo.title);
+                        document.write(util.format('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', PackageInfo.title, PackageInfo.description, PackageInfo.author, status, action))
+                      } else {
+                        status = '<span class="btn btn-warning btn-xs disabled">Uninstalled</span>';
+                        action = util.format('<a id="installPlugin" class="btn btn-info btn-xs" pluginId="%s" pluginName="%s">Install Plugin</a>', PluginFolders[i], PackageInfo.title);
+                        document.write(util.format('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', PackageInfo.title, PackageInfo.description, PackageInfo.author, status, action))
                       }
-                    } catch(error) {
-                      console.log(util.format('Improper setup of the %s plugin.', PluginFolders[i]));
                     }
-                  }
-                </script>
+                  </script>
                 </tbody>
               </table>
               <hr/>
-              <h3>Hooks</h3>
-              <table class="table table-hover">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Author</th>
-                    <th>Enabled</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <script>
-                  var HookFolders = TBJS.Functions.getFolders(path.resolve('..', 'src/hooks'));
-                  for (var i = 0; i < HookFolders.length; i++) {
-                    var hook;
-                    try {
-                      hook = require(util.format(path.resolve('..', 'src/hooks/%s'), HookFolders[i]));
-                      if(hook) {
-                        if(hook.enabled) {
-                          document.write(util.format('<tr><td>%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', hook.title, hook.description, hook.author, hook.enabled));
-                        }
-                      }
-                    } catch(error) {
-                      console.log(util.format('Improper setup of the %s hook.', HookFolders[i]));
-                    }
-                  }
-                </script>
-                </tbody>
-              </table>
             </div>
             <div class="tab-pane fade in" id="tabAbout">
             </div>
