@@ -47,12 +47,13 @@ setInterval(function() {
  * Hook Loading
  */
 var HookFolders = TBJS.Functions.getFolders('./hooks');
+var HookJSON = JSON.parse(fs.readFileSync('./hooks/hooks.json', 'utf8'));
 for (var i = 0; i < HookFolders.length; i++) {
   var hook;
   try {
     hook = require(util.format('./hooks/%s', HookFolders[i]));
     if(hook) {
-      if(hook.enabled) {
+      if(HookJSON.enabled.indexOf(HookFolders[i]) > -1) {
         hook.boot(bot);
       }
     }
@@ -64,12 +65,13 @@ for (var i = 0; i < HookFolders.length; i++) {
  * Plugin Import
  */
 var PluginFolders = TBJS.Functions.getFolders('./plugins');
+var PluginJSON = JSON.parse(fs.readFileSync('./plugins/plugins.json', 'utf8'));
 for (var i = 0; i < PluginFolders.length; i++) {
   var plugin;
   try {
     plugin = require(util.format('./plugins/%s', PluginFolders[i]));
     if(plugin) {
-      if(plugin) {
+      if(PluginJSON.enabled.indexOf(PluginFolders[i]) > -1) {
         if('commands' in plugin) {
           for (var c = 0; c < plugin.commands.length; c++) {
             if(plugin.commands[c] in plugin) {
