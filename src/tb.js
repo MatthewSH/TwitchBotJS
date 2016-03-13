@@ -5,9 +5,7 @@ var irc = require('irc');
 var util = require('util');
 var events = require('events');
 var fs = require('fs');
-var TBJS = {
-  Functions: require('tbjs/Functions')
-};
+var TBJS = require('tbjs');
 
 // Config
 var configObj = JSON.parse(fs.readFileSync('config.json', 'utf8'));
