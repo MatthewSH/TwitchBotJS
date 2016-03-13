@@ -4,19 +4,38 @@ body {
   color: #e5e5e5;*/
 }
 
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+  color: white;
+  display: inline-block;
+}
+.overlay div {
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
  .card {
-   margin-top: 20px;
-   padding: 30px;
-   background-color: rgba(214, 224, 226, 0.2);
-   -webkit-border-top-left-radius:5px;
-   -moz-border-top-left-radius:5px;
-   border-top-left-radius:5px;
-   -webkit-border-top-right-radius:5px;
-   -moz-border-top-right-radius:5px;
-   border-top-right-radius:5px;
-   -webkit-box-sizing: border-box;
-   -moz-box-sizing: border-box;
-   box-sizing: border-box;
+  margin-top: 20px;
+  padding: 30px;
+  background-color: rgba(214, 224, 226, 0.2);
+  -webkit-border-top-left-radius:5px;
+  -moz-border-top-left-radius:5px;
+  border-top-left-radius:5px;
+  -webkit-border-top-right-radius:5px;
+  -moz-border-top-right-radius:5px;
+  border-top-right-radius:5px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 .card.hovercard {
   position: relative;
