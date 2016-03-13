@@ -4,26 +4,28 @@
 var irc = require('irc');
 var util = require('util');
 var events = require('events');
+var fs = require('fs');
 var TBJS = {
   Functions: require('tbjs/Functions')
 };
 
 // Config
+var configObj = JSON.parse(fs.readFileSync('config.json', 'utf8'));
+
 var config = {
   server: 'irc.twitch.tv',
   port: 6667,
   secure: false,
-  channels: [''],
-  nick: '',
-  oauth: '',
-  floodDelay: 3
+  channels: configObj.channels,
+  nick: configObj.username,
+  oauth: configObj.oauth,
+  floodDelay: configObj.floodDelay
 }
 var bot = new irc.Client(config.server, config.nick, {
-  channels: [config.channels + ' ' + config.oauth],
-  debug: false,
-  showErrors: true,
-  password: config.oauth,
-  username: config.nick
+  channels: config.channels,
+  nick: config.nick,
+  userName: config.nick,
+  password: config.oauth
 });
 var commands = {};
 var protected = false;
@@ -67,7 +69,7 @@ for (var i = 0; i < PluginFolders.length; i++) {
   try {
     plugin = require(util.format('./plugins/%s', PluginFolders[i]));
     if(plugin) {
-      if(plugin.enabled) {
+      if(plugin) {
         if('commands' in plugin) {
           for (var c = 0; c < plugin.commands.length; c++) {
             if(plugin.commands[c] in plugin) {
@@ -81,7 +83,6 @@ for (var i = 0; i < PluginFolders.length; i++) {
     console.log(util.format('Improper setup of the %s plugin.', PluginFolders[i]));
   }
 }
-
 /**
  * Bot Listeners
  */

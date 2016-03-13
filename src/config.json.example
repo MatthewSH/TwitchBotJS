@@ -1,2 +1,8 @@
 {
+  "username": "username",
+  "oauth": "oauth:token",
+  "channels": [
+    "#username"
+  ],
+  "floodDelay": 3
 }
