@@ -1,106 +1,371 @@
-body {
-  /*background-color: #272727;
+body
+{
+    /*background-color: #272727;
   margin: 10px;
   color: #e5e5e5;*/
 }
 
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.85);
-  z-index: 9999;
-  color: white;
-  display: inline-block;
+.overlay
+{
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    display: inline-block;
+
+    color: white;
+    background-color: rgba(0, 0, 0, .85);
 }
-.overlay div {
-  text-align: center;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.overlay div
+{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+    text-align: center;
 }
 
- .card {
-  margin-top: 20px;
-  padding: 30px;
-  background-color: rgba(214, 224, 226, 0.2);
-  -webkit-border-top-left-radius:5px;
-  -moz-border-top-left-radius:5px;
-  border-top-left-radius:5px;
-  -webkit-border-top-right-radius:5px;
-  -moz-border-top-right-radius:5px;
-  border-top-right-radius:5px;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+.card
+{
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    margin-top: 20px;
+    padding: 30px;
+
+    -webkit-border-top-left-radius: 5px;
+            border-top-left-radius: 5px;
+    -webkit-border-top-right-radius: 5px;
+            border-top-right-radius: 5px;
+    background-color: rgba(214, 224, 226, .2);
+
+       -moz-border-top-left-radius: 5px;
+       -moz-border-top-right-radius: 5px;
 }
-.card.hovercard {
-  position: relative;
-  padding-top: 0;
-  overflow: hidden;
-  text-align: center;
-  background-color: #fff;
-  background-color: rgba(255, 255, 255, 1);
+.card.hovercard
+{
+    position: relative;
+
+    overflow: hidden;
+
+    padding-top: 0;
+
+    text-align: center;
+
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 1);
 }
-.card.hovercard .card-background {
-  height: 130px;
+.card.hovercard .card-background
+{
+    height: 130px;
 }
-.card-background img {
-  -webkit-filter: blur(15px);
-  -moz-filter: blur(15px);
-  -o-filter: blur(15px);
-  -ms-filter: blur(15px);
-  filter: blur(15px);
-  margin-left: -100px;
-  margin-top: -200px;
-  min-width: 130%;
+.card-background img
+{
+    min-width: 130%;
+    margin-top: -200px;
+    margin-left: -100px;
+
+    -webkit-filter: blur(15px);
+       -moz-filter: blur(15px);
+         -o-filter: blur(15px);
+        -ms-filter: blur(15px);
+            filter: blur(15px);
 }
-.card.hovercard .useravatar {
-  position: absolute;
-  top: 15px;
-  left: 0;
-  right: 0;
+.card.hovercard .useravatar
+{
+    position: absolute;
+    top: 15px;
+    right: 0;
+    left: 0;
 }
-.card.hovercard .useravatar img {
-  width: 125px;
-  height: 125px;
-  max-width: 125px;
-  max-height: 125px;
-  -webkit-border-radius: 0%;
-  -moz-border-radius: 0%;
-  border-radius: 0%;
-  /*border: 5px solid rgba(255, 255, 255, 0.5);*/
+.card.hovercard .useravatar img
+{
+    width: 125px;
+    max-width: 125px;
+    height: 125px;
+    max-height: 125px;
+
+    -webkit-border-radius: 0;
+       -moz-border-radius: 0;
+            border-radius: 0;
+    /*border: 5px solid rgba(255, 255, 255, 0.5);*/
 }
-.card.hovercard .card-info {
-  position: absolute;
-  bottom: 14px;
-  left: 0;
-  right: 0;
+.card.hovercard .card-info
+{
+    position: absolute;
+    right: 0;
+    bottom: 14px;
+    left: 0;
 }
-.card.hovercard .card-info .card-title {
-  padding:0 5px;
-  font-size: 20px;
-  line-height: 1;
-  color: #262626;
-  background-color: rgba(255, 255, 255, 0.1);
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+.card.hovercard .card-info .card-title
+{
+    font-size: 20px;
+    line-height: 1;
+
+    padding: 0 5px;
+
+    color: #262626;
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+    background-color: rgba(255, 255, 255, .1);
 }
-.card.hovercard .card-info {
-  overflow: hidden;
-  font-size: 12px;
-  line-height: 20px;
-  color: #737373;
-  text-overflow: ellipsis;
+.card.hovercard .card-info
+{
+    font-size: 12px;
+    line-height: 20px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    color: #737373;
 }
-.card.hovercard .bottom {
-  padding: 0 20px;
-  margin-bottom: 17px;
+.card.hovercard .bottom
+{
+    margin-bottom: 17px;
+    padding: 0 20px;
 }
-.btn-pref .btn {
-  -webkit-border-radius:0 !important;
+.btn-pref .btn
+{
+    -webkit-border-radius: 0 !important;
+}
+
+.wizard
+{
+    margin: 20px auto;
+
+    background: #fff;
+}
+
+.wizard .nav-tabs
+{
+    position: relative;
+
+    display: -webkit-flex;
+    display:         flex;
+
+    margin: 40px auto;
+    margin-bottom: 0;
+
+    border-bottom-color: #e0e0e0;
+
+    -webkit-flex-direction: row /* works with row or column */
+    flex-direction: row;
+    -webkit-align-items: center;
+            align-items: center;
+    -webkit-justify-content: center;
+            justify-content: center;
+}
+
+.wizard > div.wizard-inner
+{
+    position: relative;
+}
+
+.connecting-line
+{
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: 0;
+    left: .wizard .nav-tabs > li:last-child ;
+
+    width: 100% ;
+    height: 2px;
+    margin: 0 auto;
+
+    background: #e0e0e0;
+}
+
+.wizard .nav-tabs > li:last-child {
+}
+
+.wizard .nav-tabs > li:first-child {
+
+}
+
+.wizard .nav-tabs > li.active > a,
+.wizard .nav-tabs > li.active > a:hover,
+.wizard .nav-tabs > li.active > a:focus
+{
+    color: #555;
+    border: 0;
+    border-bottom-color: transparent;
+}
+
+span.round-tab
+{
+    font-size: 25px;
+    line-height: 70px;
+
+    position: absolute;
+    z-index: 2;
+    left: 0;
+
+    display: inline-block;
+
+    width: 70px;
+    height: 70px;
+
+    text-align: center;
+
+    border: 2px solid #e0e0e0;
+    border-radius: 100px;
+    background: #fff;
+}
+
+span.round-tab i
+{
+    margin: 25%;
+
+    color: #555;
+}
+.wizard li.active span.round-tab
+{
+    border: 2px solid #5bc0de;
+    background: #fff;
+}
+.wizard li.active span.round-tab i
+{
+    color: #5bc0de;
+}
+
+span.round-tab:hover
+{
+    color: #333;
+    border: 2px solid #333;
+}
+
+.wizard .nav-tabs > li
+{
+    width: 25%;
+}
+
+.wizard li:after
+{
+    position: absolute;
+    bottom: 0;
+    left: 46%;
+
+    margin: 0 auto;
+
+    content: ' ';
+    transition: .1s ease-in-out;
+
+    opacity: 0;
+    border: 5px solid transparent;
+    border-bottom-color: #5bc0de;
+}
+
+.wizard li.active:after
+{
+    position: absolute;
+    bottom: 0;
+    left: 46%;
+
+    margin: 0 auto;
+
+    content: ' ';
+
+    opacity: 1;
+    border: 10px solid transparent;
+    border-bottom-color: #5bc0de;
+}
+
+.wizard .nav-tabs > li a
+{
+    width: 70px;
+    height: 70px;
+    margin: 20px auto;
+    padding: 0;
+
+    border-radius: 100%;
+}
+
+.wizard .nav-tabs > li a:hover
+{
+    background: transparent;
+}
+
+.wizard .tab-pane
+{
+    position: relative;
+
+    padding-top: 50px;
+}
+
+.wizard h3
+{
+    margin-top: 0;
+}
+
+@media( max-width : 585px )
+{
+    .wizard
+    {
+        width: 90%;
+        height: auto !important;
+    }
+
+    span.round-tab
+    {
+        font-size: 16px;
+        line-height: 50px;
+
+        width: 50px;
+        height: 50px;
+    }
+
+    .wizard .nav-tabs > li a
+    {
+        line-height: 50px;
+
+        width: 50px;
+        height: 50px;
+    }
+
+    .wizard li.active:after
+    {
+        position: absolute;
+        left: 35%;
+
+        content: ' ';
+    }
+}
+
+.modal .modal-header
+{
+    position: relative;
+
+    border-bottom: none;
+}
+.modal .modal-header .btn
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    margin-top: 0;
+
+    border-top-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.modal .modal-footer
+{
+    padding: 0;
+
+    border-top: none;
+}
+.modal .modal-footer .btn-group > .btn:first-child
+{
+    border-bottom-left-radius: 0;
+}
+.modal .modal-footer .btn-group > .btn:last-child
+{
+    border-top-right-radius: 0;
 }
