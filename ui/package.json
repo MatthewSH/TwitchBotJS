@@ -13,7 +13,7 @@
     "fs": "0.0.2",
     "path": "^0.12.7",
     "react": "^0.14.7",
-    "react-dom": "^0.14.7",
+    "react-dom": "^16.0.1",
     "tbjs": "git+https://github.com/MatthewSH/node-tbjs.git",
     "underscore": "^1.8.3",
     "util": "^0.10.3"
