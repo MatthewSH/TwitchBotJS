@@ -4,7 +4,9 @@
   "main": "src/main.js",
   "scripts": {
     "test": "cls && node PrepWork.js && echo Starting application && electron src/main.js",
-    "start": "electron src/main.js"
+    "start": "electron src/main.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "babel-core": "^6.6.0",
@@ -16,6 +18,8 @@
     "react-dom": "^0.14.7",
     "tbjs": "git+https://github.com/MatthewSH/node-tbjs.git",
     "underscore": "^1.8.3",
-    "util": "^0.10.3"
-  }
+    "util": "^0.10.3",
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
